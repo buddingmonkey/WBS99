@@ -31,6 +31,9 @@ public class GameController : MonoBehaviour {
 	[SerializeField]
 	private Camera mainCamera;
 
+	[SerializeField]
+	private SuperDB superDB;
+
 	public GameState gameState { get; private set; }
 
 	private Round currentRound;
@@ -100,9 +103,5 @@ public class GameController : MonoBehaviour {
 			Debug.LogError ("No last round logged! Probably called this function before PlayBall()");
 			return;
 		}
-
-		// lets roll some dice
-		//var numSupersititions = Random.Range(1, 
-		// 
 	}
 }

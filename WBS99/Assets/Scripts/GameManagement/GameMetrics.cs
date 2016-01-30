@@ -46,4 +46,7 @@ public class GameMetrics {
 	public Round lastRound;
 
 	public string level;
+
+	public int cityIndex = 0;
+	public int gamesPlayedInCity = 0;
 }

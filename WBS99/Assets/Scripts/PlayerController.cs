@@ -80,11 +80,4 @@ public class PlayerController : MonoBehaviour {
 		invul = false;
 	}
 
-	void OnTriggerEnter(Collider other) {
-		if (other.tag == "Chicken") {
-			Chicken chicken = other.GetComponent<Chicken> ();
-			chicken.DestroySelf ();
-
-		}
-	}
 }

@@ -3,6 +3,7 @@ using System.Collections;
 
 public class PlayerController : MonoBehaviour {
 
+	[SerializeField]
 	int health = 5;
 	public GameObject bat;
 	Animator batAnimator;

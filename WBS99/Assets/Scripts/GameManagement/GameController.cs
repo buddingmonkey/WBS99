@@ -34,6 +34,9 @@ public class GameController : MonoBehaviour {
 	[SerializeField]
 	private SuperDB superDB;
 
+	[SerializeField]
+	private ResultsPanel resultsPanel;
+
 	public GameState gameState { get; private set; }
 
 	private Round currentRound;
@@ -56,6 +59,8 @@ public class GameController : MonoBehaviour {
 
 		currentRound.superstitions.Add (s);
 		*/
+
+		currentRound.superstitions.Add (Superstition.CreateChicken (1));
 	}
 	
 	// Update is called once per frame
@@ -76,14 +81,18 @@ public class GameController : MonoBehaviour {
 	public void PlayBall(){
 		// Do some baseball shit in here
 		Debug.Log("BASEBALL!");
+		currentRound.PlayBall ();
 
 		smoothFollow.enabled = false;
 
 		playerSpawner.DestroyObject(player);
 
 		if (GameMetrics.Instance.totalHits > GameConstants.winningHits) {
+			Debug.Log ("Winner");
 		} else if (GameMetrics.Instance.battingAverage < GameConstants.losingAverage && GameMetrics.Instance.battingAverage > .005f) {
 			SceneManager.LoadSceneAsync ("GameOver");
+		} else {
+			resultsPanel.generateRoundResults (currentRound);
 		}
 	}
 

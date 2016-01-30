@@ -52,7 +52,15 @@ public class Round {
 		return Mathf.RoundToInt((float) NormInv.NormsInv(.99 * hitProbability, (double)atBats/2.0, (double) atBats/ 6.0));
 	}
 
+	private void UpdateSuperstitions() {
+		foreach (var s in superstitions) {
+			s.UpdateFromRound (this);
+		}
+	}
+
 	public void PlayBall(){
+		UpdateSuperstitions ();
+
 		hitProbability = CalculateHitProbability ();
 		outProbability = 1 - hitProbability;
 		atBats = CalculateAtBats ();

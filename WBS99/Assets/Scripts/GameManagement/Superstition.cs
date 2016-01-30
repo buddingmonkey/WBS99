@@ -15,6 +15,7 @@ public class Superstition {
 
 	public SuperMetrics metric;
 
+	[HideInInspector]
 	public int maxValue;
 
 	public float score {

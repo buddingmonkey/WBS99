@@ -46,6 +46,12 @@ public class Round {
 
 	//=ROUND(NORMINV(0.99*E11,B2/2,B2/6),0)
 	private int CalculateHits(){
+		if (hitProbability == 0) {
+			hitProbability = Mathf.Epsilon;
+		} else if (hitProbability == 1) {
+			hitProbability = 1 - Mathf.Epsilon;
+		}
+
 		if (atBats == 0) {
 			return 0;
 		}

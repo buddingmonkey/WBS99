@@ -20,7 +20,8 @@ public class Round {
 
 	public List<Superstition> superstitions = new List<Superstition>();
 
-	private double hitProbability, outProbability;
+	public double hitProbability { get; private set; } 
+	public double outProbability { get; private set; }
 
 	private double CalculateHitProbability(){
 		float sumProduct = 0;
@@ -57,5 +58,9 @@ public class Round {
 		atBats = CalculateAtBats ();
 		hits = CalculateHits ();
 		outs = atBats - hits;
+
+		GameMetrics.Instance.totalHits += hits;
+		GameMetrics.Instance.totalAtBats += atBats;
+		GameMetrics.Instance.lastRound = this;
 	}
 }

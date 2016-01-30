@@ -26,12 +26,15 @@ public class GameMetrics {
 	}
 #endregion
 
-	public int hits;
-	public int atBats;
+	public int totalHits;
+	public int totalAtBats;
 
 	public float battingAverage {
 		get {
-			return (float)hits / (float)atBats;
+			if (totalAtBats < 1) {
+				return 0;
+			}
+			return (float)totalHits / (float)totalAtBats;
 		}
 		set { }
 	}
@@ -39,6 +42,8 @@ public class GameMetrics {
 	public Dictionary<string, int> collectedItemTotals = new Dictionary<string, int>();
 
 	public List<Superstition> superstitions = new List<Superstition>();
+
+	public Round lastRound;
 
 	public string level;
 }

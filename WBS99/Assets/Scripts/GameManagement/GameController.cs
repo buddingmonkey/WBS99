@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityStandardAssets.Utility;
+using UnityEngine.SceneManagement;
 
 public enum GameState{
 	Flying,
@@ -77,7 +78,10 @@ public class GameController : MonoBehaviour {
 
 		playerSpawner.DestroyObject(player);
 
-		gameState = GameState.Flying;
+		if (GameMetrics.Instance.totalHits > GameConstants.winningHits) {
+		} else if (GameMetrics.Instance.battingAverage < GameConstants.losingAverage && GameMetrics.Instance.battingAverage > .005f) {
+			SceneManager.LoadSceneAsync ("GameOver");
+		}
 	}
 
 	public void GotChicken(string name) {

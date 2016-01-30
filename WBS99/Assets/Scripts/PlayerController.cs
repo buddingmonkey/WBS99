@@ -3,7 +3,9 @@ using System.Collections;
 
 public class PlayerController : MonoBehaviour {
 
-	public int health = 5;
+	int health = 5;
+	public GameObject bat;
+	Animator batAnimator;
 	public float speed = 6.0F;
 	public float gravity = 20.0F;
 	bool invul;
@@ -16,6 +18,7 @@ public class PlayerController : MonoBehaviour {
 	void OnEnable(){
 		// Store reference to attached component
 		controller = GetComponent<CharacterController>();
+		batAnimator = bat.GetComponent<Animator>();
 	}
 
 	void Update() 
@@ -41,8 +44,24 @@ public class PlayerController : MonoBehaviour {
 		moveDirection.y -= gravity * Time.deltaTime;
 		// Move Character Controller
 		controller.Move(moveDirection * Time.deltaTime);
+
+		if(Input.GetButtonDown("swing"))
+		{
+	StartCoroutine(SwingBat());
+		}
 	}
 
+	IEnumerator SwingBat()
+	{
+
+	bat.SetActive(true);
+	batAnimator.Play("Swing");
+	yield return new WaitForSeconds(0.1f);
+//	whil
+//	yield return new WaitForSeconds(batAnimator.)
+//	batAnimator.Stop();
+//	bat.SetActive(false);
+	}
 
 	public IEnumerator DoDamage()
 	{

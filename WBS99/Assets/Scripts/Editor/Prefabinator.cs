@@ -8,12 +8,76 @@ public class Prefabinator {
 	[MenuItem("Tools/Prefabinator")]
 	private static void Prefabinate() {
 		string[] folders = { 
-			"Assets/Tiles/3D Road Tiles", 
-			"Assets/Tiles/Nature"
+			//			"Assets/Tiles/3D Road Tiles", 
+			//			"Assets/Tiles/Nature"
+			"Assets/Tiles/SimpleTown/Prefabs/Buildings"
 		};
 		foreach (var folder in folders) {
 			string group = Path.GetFileName (folder);
 			RunWithFolder (folder, group);
+		}
+	}
+
+	[MenuItem("Tools/Prefabinator - Buildings")]
+	private static void PrefabinateBuildings() {
+		string[] folders = { 
+			"Assets/Tiles/SimpleTown/Prefabs/Buildings"
+		};
+		foreach (var folder in folders) {
+			string group = Path.GetFileName (folder);
+			var info = new DirectoryInfo(folder);
+
+			foreach (FileInfo file in info.GetFiles("*.prefab")) {
+				string path = AssetPath (file.FullName);
+
+				GameObject baseObj;
+				if (Path.GetFileName (path).IndexOf ("House") > 0  || Path.GetFileName (path).IndexOf ("Garage") > 0) {
+					baseObj= LoadHouseBase();
+				} else {
+					baseObj= LoadBuildingBase();
+					continue;
+				}
+
+				Object o = AssetDatabase.LoadAssetAtPath<GameObject> (path);
+				var go = (GameObject)GameObject.Instantiate (o);
+				go.AddComponent<BoxCollider> ();
+				go.transform.position = new Vector3 (-1.5f, 0.62f, -1.5f);
+				go.transform.localScale = new Vector3 (0.2f, 0.2f, 0.2f);
+				go.transform.parent = baseObj.transform;
+
+				baseObj.name = Path.GetFileNameWithoutExtension (file.Name);
+				baseObj.tag = "Building";
+				UnityEditor.PrefabUtility.CreatePrefab (PrefabPath(group, file.FullName), baseObj);
+				GameObject.DestroyImmediate (baseObj);
+			}
+		}
+	}
+
+	[MenuItem("Tools/Prefabinator - Vehicles")]
+	private static void PrefabinateVehicles() {
+		string[] folders = { 
+			"Assets/Tiles/SimpleTown/Prefabs/Vehicles"
+		};
+		foreach (var folder in folders) {
+			string group = Path.GetFileName (folder);
+			var info = new DirectoryInfo(folder);
+
+			foreach (FileInfo file in info.GetFiles("*.prefab")) {
+				string path = AssetPath (file.FullName);
+
+				if (Path.GetFileName (path).IndexOf ("seperate") > 0) {
+					continue;
+				}
+
+				Object o = AssetDatabase.LoadAssetAtPath<GameObject> (path);
+				var go = (GameObject)GameObject.Instantiate (o);
+				go.AddComponent<BoxCollider> ();
+				go.transform.localScale = new Vector3 (0.2f, 0.2f, 0.2f);
+				go.tag = "Car";
+
+				UnityEditor.PrefabUtility.CreatePrefab (PrefabPath(group, file.FullName), go);
+				GameObject.DestroyImmediate (go);
+			}
 		}
 	}
 
@@ -53,5 +117,15 @@ public class Prefabinator {
 			Directory.CreateDirectory (dir);
 		}
 		return "Assets/Tiles/Prefabs/" + group + "/" + Path.GetFileNameWithoutExtension (path) + ".prefab";
+	}
+
+	private static GameObject LoadBuildingBase() {
+		Object o = AssetDatabase.LoadAssetAtPath<GameObject> ("Assets/Tiles/Prefabs/3D Road Tiles/roadTile_002.prefab");
+		return (GameObject)GameObject.Instantiate (o);
+	}
+
+	private static GameObject LoadHouseBase() {
+		Object o = AssetDatabase.LoadAssetAtPath<GameObject> ("Assets/Tiles/Prefabs/3D Road Tiles/roadTile_163.prefab");
+		return (GameObject)GameObject.Instantiate (o);
 	}
 }

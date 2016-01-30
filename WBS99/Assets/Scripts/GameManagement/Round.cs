@@ -4,7 +4,15 @@ using System.Collections.Generic;
 
 public class Round {
 	public const float MAX_ATBATS = 9;
-	public int numChickens;
+
+	// Buncha hard coded stuff...
+	public int numChickens = 0;
+	public int numEnemies = 0;
+	public int numBeers = 0;
+	public int numCows = 0;
+	public List<char> lettersCollected = new List<char> ();
+
+	public float timeToStadium;
 
 	public int atBats { get; private set; }
 	public int hits { get; private set; }

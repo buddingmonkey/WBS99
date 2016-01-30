@@ -80,11 +80,13 @@ public class GameController : MonoBehaviour {
 		gameState = GameState.Flying;
 	}
 
-	public void GotChicken() {
+	public void GotChicken(string name) {
+		currentRound.numChickens++;
 		Debug.Log ("Got a Chicken");
 	}
 
 	public void HitEnemy() {
+		currentRound.numEnemies++;
 		Debug.Log ("Hit a Enemy");
 	}
 }

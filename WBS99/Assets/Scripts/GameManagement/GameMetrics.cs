@@ -38,5 +38,7 @@ public class GameMetrics {
 
 	public Dictionary<string, int> collectedItemTotals = new Dictionary<string, int>();
 
+	public List<Superstition> superstitions = new List<Superstition>();
+
 	public string level;
 }

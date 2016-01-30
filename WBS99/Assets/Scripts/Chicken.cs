@@ -66,7 +66,7 @@ public class Chicken : MonoBehaviour {
 			DestroySelf ();
 
 			// tell game controller
-			spawner.gameController.GotChicken();
+			spawner.gameController.GotChicken(gameObject.name);
 		}
 	}
 

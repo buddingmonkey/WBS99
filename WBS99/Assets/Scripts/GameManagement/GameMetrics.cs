@@ -33,7 +33,7 @@ public class GameMetrics {
 		get {
 			return (float)hits / (float)atBats;
 		}
-		private set;
+		set { }
 	}
 
 	public Dictionary<string, int> collectedItemTotals = new Dictionary<string, int>();

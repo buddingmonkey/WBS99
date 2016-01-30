@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 
 public class Round {
-	public const float MAX_ATBATS = 4.5f;
+	public const float MAX_ATBATS = 9;
 	public int numChickens;
 
 	public int atBats { get; private set; }
@@ -12,32 +12,42 @@ public class Round {
 
 	public List<Superstition> superstitions = new List<Superstition>();
 
-	private float hitProbability, outProbability;
+	private double hitProbability, outProbability;
 
-	private float CalculateHitProbability(){
+	private double CalculateHitProbability(){
 		float sumProduct = 0;
 		float totalValue = 0;
 
 		foreach (Superstition superstition in superstitions) {
-			sumProduct = superstition.score + superstition.weight;
-			totalValue = superstition.weight;
+			sumProduct += superstition.score * superstition.weight;
+			totalValue += superstition.weight;
 		}
 
 		return sumProduct / totalValue;
 	}
 
-	private float CalculateOutProbability(){
-		return 1f - CalculateHitProbability ();
+	private double CalculateOutProbability(){
+		return 1.0 - CalculateHitProbability ();
 	}
 		
 	private int CalculateAtBats(){
-		var bats = RandomFromDistribution.RandomRangeNormalDistribution (0, MAX_ATBATS, RandomFromDistribution.ConfidenceLevel_e._99);
+		var bats = RandomFromDistribution.RandomRangeNormalDistribution (0, MAX_ATBATS, RandomFromDistribution.ConfidenceLevel_e._80);
 		return Mathf.RoundToInt (bats);
 	}
 
-	private int calculateOuts;
+	//=ROUND(NORMINV(0.99*E11,B2/2,B2/6),0)
+	private int CalculateHits(){
+		if (atBats == 0) {
+			return 0;
+		}
+		return Mathf.RoundToInt((float) NormInv.NormsInv(.99 * hitProbability, (double)atBats/2.0, (double) atBats/ 6.0));
+	}
 
 	public void PlayBall(){
-		
+		hitProbability = CalculateHitProbability ();
+		outProbability = 1 - hitProbability;
+		atBats = CalculateAtBats ();
+		hits = CalculateHits ();
+		outs = atBats - hits;
 	}
 }

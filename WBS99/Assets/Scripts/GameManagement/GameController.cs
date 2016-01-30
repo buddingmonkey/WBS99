@@ -39,6 +39,16 @@ public class GameController : MonoBehaviour {
 	void NextRound(){
 		gameState = GameState.Flying;
 		currentRound = new Round ();
+
+		/* Example code for adding a supersitition
+		var s = new Superstition ();
+		s.maxValue = 2;
+		s.value = 1;
+		s.score = .5f;
+		s.weight = .5f;
+
+		currentRound.superstitions.Add (s);
+		*/
 	}
 	
 	// Update is called once per frame

@@ -92,7 +92,8 @@ public class GameController : MonoBehaviour {
 		} else if (GameMetrics.Instance.battingAverage < GameConstants.losingAverage && GameMetrics.Instance.battingAverage > .005f) {
 			SceneManager.LoadSceneAsync ("GameOver");
 		} else {
-			resultsPanel.generateRoundResults (currentRound);
+			if (resultsPanel != null)
+				resultsPanel.generateRoundResults (currentRound);
 		}
 	}
 

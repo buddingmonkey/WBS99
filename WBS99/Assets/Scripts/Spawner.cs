@@ -14,7 +14,7 @@ public class Spawner : MonoBehaviour {
 	public GameController gameController { get; set; }
 
 	// Use this for initialization
-	void Start () {
+	void Awake () {
 		gameController = GameObject.Find ("GameController").GetComponent<GameController>();
 		for (int i = 0; i < initialPoolSize; i++) {
 			InstantiateObject ();

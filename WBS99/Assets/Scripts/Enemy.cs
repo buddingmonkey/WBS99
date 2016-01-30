@@ -7,11 +7,11 @@ public class Enemy : MonoBehaviour {
 	private PlayerController playerController;
     private NavMeshAgent agent;
     public float speed = 1.0f;
-	private Spawner spawner;
+	private EnemySpawner spawner;
 
     // Use this for initialization
     void Start () {
-		spawner = transform.parent.GetComponent<Spawner> ();
+		spawner = transform.parent.GetComponent<EnemySpawner> ();
 
    //TODO: Remove FIND!
         player = GameObject.FindGameObjectWithTag ("Player");

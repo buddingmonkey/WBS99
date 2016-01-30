@@ -7,9 +7,12 @@ public class Enemy : MonoBehaviour {
 	private PlayerController playerController;
     private NavMeshAgent agent;
     public float speed = 1.0f;
+	private Spawner spawner;
+
     // Use this for initialization
     void Start () {
-   
+		spawner = transform.parent.GetComponent<Spawner> ();
+
    //TODO: Remove FIND!
         player = GameObject.FindGameObjectWithTag ("Player");
 		playerController = player.GetComponent<PlayerController>();
@@ -51,4 +54,19 @@ public class Enemy : MonoBehaviour {
         //     Debug.Log("not close yet " + distance);
         // }
     }
+
+
+	void OnTriggerEnter(Collider other) {
+		if (other.tag == "Bat") {
+			DestroySelf ();
+
+			// tell game controller
+			spawner.gameController.HitEnemy();
+		}
+	}
+
+	public void DestroySelf () {
+		spawner.DestroyObject (transform);
+	}
+
 }

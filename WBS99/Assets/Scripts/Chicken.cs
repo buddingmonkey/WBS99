@@ -7,6 +7,7 @@ public class Chicken : MonoBehaviour {
 	private float range = 100;
 	private NavMeshAgent agent;
 	private Vector3 point;
+	private Spawner spawner;
 
 	bool RandomPoint(Vector3 center, float range, out Vector3 result) {
 		for (int i = 0; i < 30; i++) {
@@ -47,6 +48,7 @@ public class Chicken : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+		spawner = transform.parent.GetComponent<Spawner> ();
 		agent = GetComponent<NavMeshAgent>();
 		FindNewPoint ();
 	}
@@ -58,6 +60,20 @@ public class Chicken : MonoBehaviour {
 			FindNewPoint();
 		}
 	}
+
+	void OnTriggerEnter(Collider other) {
+		if (other.tag == "Player") {
+			DestroySelf ();
+
+			// tell game controller
+			spawner.gameController.GotChicken();
+		}
+	}
+
+	public void DestroySelf () {
+		spawner.DestroyObject (transform);
+	}
+
 }
 
 

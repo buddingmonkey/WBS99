@@ -11,8 +11,11 @@ public class Spawner : MonoBehaviour {
 
 	private Stack<Transform> objectPool = new Stack<Transform> ();
 
+	public GameController gameController { get; set; }
+
 	// Use this for initialization
 	void Start () {
+		gameController = GameObject.Find ("GameController").GetComponent<GameController>();
 		for (int i = 0; i < initialPoolSize; i++) {
 			InstantiateObject ();
 		}

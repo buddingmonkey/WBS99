@@ -22,6 +22,9 @@ public class GameController : MonoBehaviour {
 	private List<Spawner> enemySpawners;
 
 	[SerializeField]
+	private List<Spawner> collectibleSpawners;
+
+	[SerializeField]
 	private SmoothFollow smoothFollow;
 
 	[SerializeField]
@@ -75,5 +78,13 @@ public class GameController : MonoBehaviour {
 		playerSpawner.DestroyObject(player);
 
 		gameState = GameState.Flying;
+	}
+
+	public void GotChicken() {
+		Debug.Log ("Got a Chicken");
+	}
+
+	public void HitEnemy() {
+		Debug.Log ("Hit a Enemy");
 	}
 }

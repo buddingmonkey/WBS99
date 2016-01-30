@@ -78,4 +78,12 @@ public class PlayerController : MonoBehaviour {
 		yield return new WaitForSeconds(1);
 		invul = false;
 	}
+
+	void OnTriggerEnter(Collider other) {
+		if (other.tag == "Chicken") {
+			Chicken chicken = other.GetComponent<Chicken> ();
+			chicken.DestroySelf ();
+
+		}
+	}
 }

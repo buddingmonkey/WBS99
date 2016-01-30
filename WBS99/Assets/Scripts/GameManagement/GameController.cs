@@ -41,8 +41,9 @@ public class GameController : MonoBehaviour {
 
 	public void PlayBall(){
 		// Do some baseball shit in here
-		playerSpawner.DestroyObject(player);
 		Debug.Log("BASEBALL!");
+
+		playerSpawner.DestroyObject(player);
 		gameState = GameState.Flying;
 	}
 }

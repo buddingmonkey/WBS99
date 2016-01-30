@@ -29,9 +29,16 @@ public class GameController : MonoBehaviour {
 
 	public GameState gameState { get; private set; }
 
+	private Round currentRound;
+
 	// Use this for initialization
 	void Start () {
+		NextRound ();
+	}
+
+	void NextRound(){
 		gameState = GameState.Flying;
+		currentRound = new Round ();
 	}
 	
 	// Update is called once per frame

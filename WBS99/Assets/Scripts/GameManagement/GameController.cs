@@ -93,4 +93,16 @@ public class GameController : MonoBehaviour {
 		currentRound.numEnemies++;
 		Debug.Log ("Hit a Enemy");
 	}
+
+	public void GenerateSupersititions(){
+		var round = GameMetrics.Instance.lastRound;
+		if (round == null) {
+			Debug.LogError ("No last round logged! Probably called this function before PlayBall()");
+			return;
+		}
+
+		// lets roll some dice
+		//var numSupersititions = Random.Range(1, 
+		// 
+	}
 }

@@ -3,8 +3,10 @@ using System.Collections;
 
 public class PlayerController : MonoBehaviour {
 
+	public int health = 5;
 	public float speed = 6.0F;
 	public float gravity = 20.0F;
+	bool invul;
 
 	private Vector3 moveDirection = Vector3.zero;
 	public CharacterController controller;
@@ -39,5 +41,22 @@ public class PlayerController : MonoBehaviour {
 		moveDirection.y -= gravity * Time.deltaTime;
 		// Move Character Controller
 		controller.Move(moveDirection * Time.deltaTime);
+	}
+
+
+	public IEnumerator DoDamage()
+	{
+		if(!invul)
+		{
+			health -= 1;
+		}
+		else
+		{
+			return false;
+		}
+		//make invulnerable for 1 second
+		invul = true;
+		yield return new WaitForSeconds(1);
+		invul = false;
 	}
 }

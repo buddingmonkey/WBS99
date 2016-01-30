@@ -3,15 +3,16 @@ using System.Collections;
 
 public class Enemy : MonoBehaviour {
 
-    private GameObject player;
+	private GameObject player;
+	private PlayerController playerController;
     private NavMeshAgent agent;
     public float speed = 1.0f;
- 
     // Use this for initialization
     void Start () {
    
    //TODO: Remove FIND!
         player = GameObject.FindGameObjectWithTag ("Player");
+		playerController = player.GetComponent<PlayerController>();
  
         if (!player) {
             Debug.Log ("ERROR could not find Player!");
@@ -26,6 +27,11 @@ public class Enemy : MonoBehaviour {
         if (!player) {
             return;
         }
+
+	if(Vector3.Distance(player.transform.position, transform.position) < 1)
+	{
+		StartCoroutine(playerController.DoDamage());
+	}
  
           agent.destination = player.transform.position; 
         // var distance = Vector3.Distance( player.transform.position, transform.position);

@@ -48,13 +48,18 @@ public class Superstition {
 		this.metric = s.metric;
 		this.letters = s.letters;
 		this.weight = s.weight;
+		this.maxValue = s.maxValue;
 	}
 	
 	public void UpdateFromRound(Round round) {
 		switch (type) {
 		case Type.Chicken:
 			if (metric == SuperMetrics.pickup) {
-				value = round.numChickens % 10 == checkValue ? 1 : 0;
+				if (maxValue == 1) {
+					value = round.numChickens == 1 ? 1 : 0;
+				} else {
+					value = round.numChickens % 10 == checkValue ? 1 : 0;
+				}
 			}
 			break;
 

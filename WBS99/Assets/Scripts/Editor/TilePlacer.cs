@@ -113,8 +113,9 @@ public class TilePlacerPopup : EditorWindow {
 							go.transform.rotation = rot;
 						} else if (tile.tag == "Collectable" || tile.tag == "Nature")
 						{
-							Vector3 pos = hit.collider.transform.position;
-							pos = new Vector3 (pos.x+1.5f, pos.y + 1, pos.z+1.5f);
+							Vector3 pos = hit.point;
+							pos = new Vector3 (pos.x, pos.y + 1, pos.z);
+							//pos = new Vector3 (pos.x+1.5f, pos.y + 1, pos.z+1.5f);
 							Quaternion rot = hit.collider.transform.rotation;
 							Transform go;
 							go = (Transform)PrefabUtility.InstantiatePrefab (tile);

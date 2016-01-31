@@ -11,6 +11,8 @@ public class PlayerController : MonoBehaviour {
 	public float gravity = 20.0F;
 	bool invulnerable;
 
+	private float idleTime = 0;
+
 	private float rotationSpeed = 10f;
 
 	[SerializeField]
@@ -57,17 +59,21 @@ public class PlayerController : MonoBehaviour {
 			StartCoroutine(SwingBat());
 		}
 
-		animator.SetFloat ("velocity", moveDirection.sqrMagnitude);
-
 		if (moveDirection.sqrMagnitude > 1f) {
-			wadeModel.rotation = Quaternion.Slerp(
+			wadeModel.rotation = Quaternion.Slerp (
 				wadeModel.rotation,
-				Quaternion.LookRotation(moveDirection),
+				Quaternion.LookRotation (moveDirection),
 				Time.deltaTime * rotationSpeed
 			);
 
 			wadeModel.rotation = Quaternion.Euler (0, wadeModel.eulerAngles.y, wadeModel.eulerAngles.z);
+			idleTime += 0;
+		} else {
+			idleTime += Time.deltaTime;
 		}
+
+		animator.SetFloat ("velocity", moveDirection.sqrMagnitude);
+		animator.SetFloat ("idleTime", idleTime);
 	}
 
 	IEnumerator SwingBat()

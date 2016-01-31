@@ -27,16 +27,16 @@ public class EnemySpawnController : MonoBehaviour {
 		Vector3 locationOfSpawner = FindClosestSpawnLocation();
 		for (int i = 0; i < poolSize; i++)
 		{
-			InstantiateObject (locationOfSpawner);
+			Spawn ();
 		}
 	}
 
 	public Transform Spawn(){
-//		if (enemyPool.Count < 1) {
-//			InstantiateObject(locationOfSpawner);
-//		}
-
 		Vector3 locationOfSpawner = FindClosestSpawnLocation();
+		if (enemyPool.Count < 1) {
+			InstantiateObject(locationOfSpawner);
+		}
+
 		var t = enemyPool.Pop ();
 		t.rotation = this.transform.rotation;
 		t.position = locationOfSpawner;
@@ -51,11 +51,10 @@ public class EnemySpawnController : MonoBehaviour {
 	}
 
 	private Transform InstantiateObject(Vector3 locationOfSpawner){
-		Transform t = Instantiate (Enemy.transform);
-		t.parent = this.transform;
+		Transform t = (Transform)Instantiate (Enemy.transform, locationOfSpawner, Quaternion.identity);
+		//t.parent = this.transform;
 		t.position = locationOfSpawner;
-		//Debug.Log (t.position);
-		//enemyPool.Push (t);
+		enemyPool.Push (t);
 		return t;
 	}
 
@@ -72,8 +71,6 @@ public class EnemySpawnController : MonoBehaviour {
 		float maxDistance = 10000;
 		Vector3 closestSpawnerLocation = new Vector3();
 
-//		Debug.Log (closestSpawnerLocation);
-//		Debug.Log (spawnLocations.Count);
 		for(int i = 0; i < spawnLocations.Count; i++)
 		{
 			//Debug.Log ("ASKLDJLAKS");
@@ -84,7 +81,6 @@ public class EnemySpawnController : MonoBehaviour {
 				closestSpawnerLocation = spawnLocations[i];
 			}
 		}
-		//Debug.Log (closestSpawnerLocation);
 		return closestSpawnerLocation;
 	}
 

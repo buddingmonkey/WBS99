@@ -4,6 +4,12 @@ using System.Collections.Generic;
 
 public class Compass : MonoBehaviour {
 
+	[SerializeField]
+	private Color chickenColor;
+
+	[SerializeField]
+	private Color stadiumColor;
+
 	public Transform player;
 
 	[SerializeField]
@@ -34,6 +40,7 @@ public class Compass : MonoBehaviour {
 			a.SetActive (false);
 			arrows.Add (a);
 		}
+		arrow.gameObject.SetActive (false);
 	}
 	
 	// Update is called once per frame
@@ -46,16 +53,13 @@ public class Compass : MonoBehaviour {
 
 			transform.position = player.position;
 
-			if (!PointAtChickens ()) {
-				PointAtStadium ();
-			}
+			PointAtChickens ();
 		}
 		lastPos = player.position;
 	}
 
-	bool PointAtChickens() {
+	void PointAtChickens() {
 		Vector3 pos = transform.position;
-		bool atLeastOne = false;
 		int i = 0;
 		foreach (var chick in GameObject.FindGameObjectsWithTag ("Chicken")) {
 			Vector3 dir = chick.transform.position - pos;
@@ -65,15 +69,23 @@ public class Compass : MonoBehaviour {
 			float angle = Mathf.Atan2(-dir.z, dir.x) * Mathf.Rad2Deg + 90;
 			a.transform.rotation = Quaternion.AngleAxis (angle, Vector3.up);
 			a.SetActive (true);
-			atLeastOne = true;
 			i++;
+		}
+
+		if (i == 0) {
+			PointAtStadium ();
+			return;
 		}
 
 		for (; i < arrows.Count; i++) {
 			arrows [i].SetActive (false);
 		}
 
-		return atLeastOne;
+		Color c = mat.color;
+		c.r = chickenColor.r;
+		c.g = chickenColor.g;
+		c.b = chickenColor.b;
+		mat.color = c;
 	}
 
 	void PointAtStadium() {
@@ -89,5 +101,11 @@ public class Compass : MonoBehaviour {
 		for (int i = 1; i < arrows.Count; i++) {
 			arrows [i].SetActive (false);
 		}
+
+		Color c = mat.color;
+		c.r = stadiumColor.r;
+		c.g = stadiumColor.g;
+		c.b = stadiumColor.b;
+		mat.color = c;
 	}
 }

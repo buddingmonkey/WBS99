@@ -40,6 +40,11 @@ public class GameController : MonoBehaviour {
 	[SerializeField]
 	private ResultsPanel resultsPanel;
 
+	[SerializeField]
+	private Transform hudPrefab;
+	[SerializeField]
+	private Hud hud;
+
 	public GameState gameState { get; private set; }
 
 	public float gameTime { get; private set; }
@@ -48,6 +53,10 @@ public class GameController : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+		if (hud == null) {
+			hud = Instantiate (hudPrefab).GetComponentInChildren<Hud>();
+			hud.gameController = this;
+		}
 		if (resultsPanel == null) {
 			resultsPanel = Instantiate (resultsPanelPrefab).GetComponentInChildren<ResultsPanel>();
 			resultsPanel.gameController = this;
@@ -92,6 +101,10 @@ public class GameController : MonoBehaviour {
 		} else if (gameState == GameState.City) {
 			gameTime += Time.deltaTime;
 		}
+	}
+
+	public Round GetCurrentRound() {
+		return currentRound;
 	}
 
 	private void SpawnPlayer(){

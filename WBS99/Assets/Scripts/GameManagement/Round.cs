@@ -7,9 +7,19 @@ public class Round {
 
 	// Buncha hard coded stuff...
 	public int numChickens = 0;
+	public float lastChicken = 0;
 	public int numEnemies = 0;
+	public float lastEnemy = 0;
 	public int numBeers = 0;
+	// LAST BEER DEFAULTS TO INFINITY BECAUSE THERE NEVER IS A LAST BEER
+	public float lastBeer = Mathf.Infinity;
 	public int numCows = 0;
+	public float lastCow = 0;
+	public int numBalls = 0;
+	public float lastBall = 0;
+	public string letters = "";
+	public float lastLetter = 0;
+
 	public List<char> lettersCollected = new List<char> ();
 
 	public float timeToStadium;

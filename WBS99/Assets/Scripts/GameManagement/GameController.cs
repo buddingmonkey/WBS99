@@ -41,6 +41,8 @@ public class GameController : MonoBehaviour {
 
 	public GameState gameState { get; private set; }
 
+	public float gameTime { get; private set; }
+
 	private Round currentRound;
 
 	// Use this for initialization
@@ -56,16 +58,6 @@ public class GameController : MonoBehaviour {
 		gameState = GameState.Flying;
 		currentRound = new Round ();
 
-		/* Example code for adding a supersitition
-		var s = new Superstition ();
-		s.maxValue = 2;
-		s.value = 1;
-		s.score = .5f;
-		s.weight = .5f;
-
-		currentRound.superstitions.Add (s);
-		*/
-
 		currentRound.superstitions.Add (Superstition.CreateChicken (1));
 	}
 	
@@ -75,6 +67,8 @@ public class GameController : MonoBehaviour {
 			gameState = GameState.City;
 			SpawnPlayer ();
 		}
+
+		gameTime += Time.deltaTime;
 	}
 
 	private void SpawnPlayer(){

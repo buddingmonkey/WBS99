@@ -27,6 +27,15 @@ public class PlayerController : MonoBehaviour {
 	[SerializeField]
 	private AudioSource footsteps;
 
+	[SerializeField]
+	private Transform compasPrefab;
+	private Compass compass;
+
+	void Start() {
+		// add compass
+		GameObject.Instantiate(compasPrefab).GetComponent<Compass>().player = transform;
+	}
+
 	void OnEnable(){
 		// Store reference to attached component
 		controller = GetComponent<CharacterController>();

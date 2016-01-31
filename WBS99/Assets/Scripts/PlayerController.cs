@@ -100,12 +100,16 @@ public class PlayerController : MonoBehaviour {
 	//bat.SetActive(true);
 	//batAnimator.Play("Swing");
 		animator.Play ("baseball_hit_Mirrored");
+		bat.SetActive (true);
 		//return;
-	yield return new WaitForSeconds(0.1f);
-//	whil
-//	yield return new WaitForSeconds(batAnimator.)
-//	batAnimator.Stop();
-//	bat.SetActive(false);
+		//animator.
+		yield return new WaitForSeconds( animator.GetCurrentAnimatorStateInfo (0).length-0.1f);
+//		{
+//			Debug.Log ("ADSJHAKS");
+//			yield return null;
+//		}
+
+		bat.SetActive (false);
 	}
 
 	public IEnumerator DoDamage()

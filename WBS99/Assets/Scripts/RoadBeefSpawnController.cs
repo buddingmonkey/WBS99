@@ -47,6 +47,7 @@ public class RoadBeefSpawnController : MonoBehaviour {
 	public void DestroyObject(Transform t){
 		t.gameObject.SetActive (false);
 		beefPool.Push (t);
+		//Prime31.ZestKit.CameraShakeTween (Camera.main);
 		StartCoroutine(WaitThenCreateNewBeef());
 	}
 

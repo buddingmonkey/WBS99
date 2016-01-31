@@ -20,6 +20,17 @@ public class ResultsPanel : MonoBehaviour {
 	[SerializeField]
 	private Image bg;
 
+	[SerializeField]
+	private AudioSource audioSource;
+
+	[SerializeField]
+	private AudioClip cheer;
+	[SerializeField]
+	private AudioClip charge;
+
+	[SerializeField]
+	private AudioListener audioListener;
+
 	private int nItems;
 	private IEnumerator blinkEnumerator;
 	private bool allowContinue;
@@ -141,6 +152,9 @@ public class ResultsPanel : MonoBehaviour {
 		AddItem ("Current Batting Average", string.Format("{0:.000}", GameMetrics.Instance.battingAverage));
 
 		ShowResults ();
+
+		audioListener.enabled = true;
+		audioSource.PlayOneShot (cheer);
 	}
 
 	public void generateSuperstitionsList(Action callback) {
@@ -152,5 +166,7 @@ public class ResultsPanel : MonoBehaviour {
 			AddTitle (s.NonSpecificDisplayName ());
 		}
 		ShowResults ();
+
+		audioSource.PlayOneShot (charge);
 	}
 }

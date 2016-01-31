@@ -97,8 +97,10 @@ public class PlayerController : MonoBehaviour {
 	IEnumerator SwingBat()
 	{
 
-	bat.SetActive(true);
-	batAnimator.Play("Swing");
+	//bat.SetActive(true);
+	//batAnimator.Play("Swing");
+		animator.Play ("baseball_hit_Mirrored");
+		//return;
 	yield return new WaitForSeconds(0.1f);
 //	whil
 //	yield return new WaitForSeconds(batAnimator.)

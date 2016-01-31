@@ -31,7 +31,7 @@ public class BeefMusic : MonoBehaviour {
 	}
 
 	void BounceBounce (){
-		cowModel.ZKlocalPositionTo (new Vector3 (0, Random.Range (.4f, 2f), 0), Random.Range (.25f, .5f))
+		cowModel.ZKlocalPositionTo (new Vector3 (0, Random.Range (.4f, 1.5f), 0), Random.Range (.25f, .5f))
 			.setLoops (LoopType.PingPong, 1)
 			.setCompletionHandler ((ITween<Vector3> obj) => {
 				BounceBounce ();

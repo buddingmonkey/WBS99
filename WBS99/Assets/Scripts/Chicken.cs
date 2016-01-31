@@ -8,6 +8,19 @@ public class Chicken : MonoBehaviour {
 	GameController gameController;
 	private NavMeshAgent agent;
 	private Vector3 point;
+
+	[SerializeField]
+	private AudioSource audioSource;
+
+	[SerializeField]
+	private AudioClip squwak;
+
+	[SerializeField]
+	private ParticleSystem feathers;
+
+	[SerializeField]
+	private GameObject chickenModel;
+
 	//private Spawner spawner;
 
 	bool RandomPoint(Vector3 center, float range, out Vector3 result) {
@@ -69,14 +82,42 @@ public class Chicken : MonoBehaviour {
 		if (other.tag == "Player") {
 			DestroySelf ();
 
+			audioSource.PlayOneShot (squwak);
+
+			//feathers.Stop ();
+			feathers.loop = false;
+
+			feathers.maxParticles = 1000;
+
+			var em = feathers.emission;
+			em.type = ParticleSystemEmissionType.Time;
+			em.rate = new ParticleSystem.MinMaxCurve (250);
+
+			em.enabled = true;
+
+			feathers.startSpeed = 10;
+
+			feathers.gravityModifier = .5f;
+			//feathers.startLifetime = 1;
+			//feathers.Play ();
+
 			// tell game controller
 			gameController.GotChicken(gameObject.name);
 		}
 	}
 
+	public void OnEnable(){
+		chickenModel.SetActive (true);
+	}
+
 	public void DestroySelf () {
+		chickenModel.SetActive (false);
 		//spawner.DestroyObject (transform);
-		this.gameObject.SetActive(false);
+		Invoke("Deactivate", 2f);
+	}
+
+	private void Deactivate(){
+		this.gameObject.SetActive (false);
 	}
 
 }

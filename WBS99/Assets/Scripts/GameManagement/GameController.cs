@@ -84,6 +84,10 @@ public class GameController : MonoBehaviour {
 		smoothFollow.target = player;
 	}
 
+	public Transform GetPlayer() {
+		return player;
+	}
+
 	public void PlayBall(){
 		// Do some baseball shit in here
 		Debug.Log("BASEBALL!");

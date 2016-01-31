@@ -86,7 +86,10 @@ public class Round {
 		hitProbability = CalculateHitProbability ();
 		outProbability = 1 - hitProbability;
 		atBats = CalculateAtBats ();
-		hits = CalculateHits ();
+
+		// HAX
+		hits = Mathf.Max(1, CalculateHits ());
+
 		outs = atBats - hits;
 
 		GameMetrics.Instance.totalHits += hits;

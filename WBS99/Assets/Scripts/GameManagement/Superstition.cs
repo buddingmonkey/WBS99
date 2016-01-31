@@ -98,14 +98,14 @@ public class Superstition {
 		switch (type) {
 		case Type.Chicken:
 			if (maxValue == 1) {
-				return string.Format ("Eat a Chicken", maxValue);
+				return string.Format ("Eat a Chicken");
 			} else {
-				return string.Format ("Eat {0} Chickens", maxValue);
+				return string.Format ("Eat # of Chickens ending in {0}", maxValue % 10);
 			}
 		case Type.Beer:
-			return string.Format ("Drink {0} Beers", maxValue);
+			return string.Format ("Drink # of Beers ending in {0}", maxValue);
 		case Type.Baseballs:
-			return string.Format ("Field {0} Balls", maxValue);
+			return string.Format ("Field # of Balls ending in {0}", maxValue);
 		case Type.Cows:
 			return string.Format ("Hit {0} Road Beef", maxValue);
 		case Type.Letters:
@@ -121,18 +121,10 @@ public class Superstition {
 			if (maxValue == 1) {
 				return string.Format ("Eat a Chicken");
 			} else {
-				return string.Format ("Eat ?? Chickens");
+				return "?????";
 			}
-		case Type.Beer:
-			return string.Format ("Drink ?? Beers");
-		case Type.Baseballs:
-			return string.Format ("Field ?? Balls");
-		case Type.Cows:
-			return string.Format ("Hit ?? Road Beef");
-		case Type.Letters:
-			return string.Format ("Spell ????");
 		default:
-			return "Unknown Superstition";
+			return "?????";
 		}
 	}
 

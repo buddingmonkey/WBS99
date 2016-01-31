@@ -44,7 +44,6 @@ public class TilePlacerPopup : EditorWindow {
 	{
 
 		Object o = AssetDatabase.LoadAssetAtPath<GameObject> ("Assets/Tiles/Prefabs/3D Road Tiles/roadTile_163.prefab");
-		grassTile = (GameObject)GameObject.Instantiate (o);
 		Level = new GameObject("Level");
 
 		Vector3 pos = new Vector3 (0, 0, 0);
@@ -53,14 +52,14 @@ public class TilePlacerPopup : EditorWindow {
 		{
 			for (int j = 0; j < sizeOfArray; j++)
 			{
-				temptile = (GameObject)Instantiate (grassTile, pos, Quaternion.identity); 
+				temptile = PrefabUtility.InstantiatePrefab (o) as GameObject;
+				temptile.transform.position = pos; 
 				tiles[i,j] = temptile.transform;
 				pos = new Vector3 (pos.x+3, pos.y,pos.z);
 				temptile.transform.parent = Level.transform;
 			}
 			pos = new Vector3 (0, pos.y,pos.z+3);
 		}
-		DestroyImmediate (grassTile);
 	}
 
 
@@ -104,14 +103,19 @@ public class TilePlacerPopup : EditorWindow {
 								DestroyImmediate (hit.collider.gameObject);
 							}
 							Transform go;
-							go = (Transform)Instantiate (tile, pos, rot); 
-							go.transform.parent = Level.transform;
+							go = (Transform)PrefabUtility.InstantiatePrefab (tile);
+							go.transform.position = pos; 
+							go.transform.parent = Level.transform; 
+							go.transform.rotation = rot;
 						} else if (tile.tag == "Collectable" || tile.tag == "Nature")
 						{
 							Vector3 pos = hit.collider.transform.position;
 							pos = new Vector3 (pos.x+1.5f, pos.y + 1, pos.z+1.5f);
 							Quaternion rot = hit.collider.transform.rotation;
-							Instantiate (tile, pos, rot); 
+							Transform go;
+							go = (Transform)PrefabUtility.InstantiatePrefab (tile);
+							go.transform.position = pos; 
+							go.transform.rotation = rot;
 
 						} else
 						{

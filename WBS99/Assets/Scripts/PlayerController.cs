@@ -24,6 +24,9 @@ public class PlayerController : MonoBehaviour {
 
 	public Transform cameraTransform;
 
+	[SerializeField]
+	private AudioSource footsteps;
+
 	void OnEnable(){
 		// Store reference to attached component
 		controller = GetComponent<CharacterController>();
@@ -68,7 +71,13 @@ public class PlayerController : MonoBehaviour {
 
 			wadeModel.rotation = Quaternion.Euler (0, wadeModel.eulerAngles.y, wadeModel.eulerAngles.z);
 			idleTime += 0;
+			if (!footsteps.isPlaying) {
+				footsteps.Play ();
+			}
 		} else {
+			if (footsteps.isPlaying) {
+				footsteps.Stop ();
+			}
 			idleTime += Time.deltaTime;
 		}
 

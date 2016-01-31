@@ -107,7 +107,7 @@ public class ResultsPanel : MonoBehaviour {
 				yield return new WaitForSeconds (0.25f);
 			}
 		}
-		yield return new WaitForSeconds (2);
+		yield return new WaitForSeconds (1);
 		StartCoroutine (blinkEnumerator = BlinkPressAKey());
 		allowContinue = true;
 	}
@@ -146,7 +146,7 @@ public class ResultsPanel : MonoBehaviour {
 		AddTitle ("Pre-game superstitions for " + GameMetrics.Instance.cityName);
 		AddTitle ("");
 		foreach (var s in GameMetrics.Instance.GetSuperstitions()) {
-			AddTitle (s.DisplayName());
+			AddTitle (s.NonSpecificDisplayName ());
 		}
 		ShowResults ();
 	}

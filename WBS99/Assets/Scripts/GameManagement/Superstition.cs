@@ -97,6 +97,27 @@ public class Superstition {
 		}
 	}
 
+	public string NonSpecificDisplayName() {
+		switch (type) {
+		case Type.Chicken:
+			if (maxValue == 1) {
+				return string.Format ("Eat a Chicken");
+			} else {
+				return string.Format ("Eat ?? Chickens");
+			}
+		case Type.Beer:
+			return string.Format ("Drink ?? Beers");
+		case Type.Baseballs:
+			return string.Format ("Field ?? Balls");
+		case Type.Cows:
+			return string.Format ("Hit ?? Road Beef");
+		case Type.Letters:
+			return string.Format ("Spell ????");
+		default:
+			return "Unknown Superstition";
+		}
+	}
+
 	private static Superstition Create(Type type, int maxValue) {
 		var s = new Superstition ();
 		s.type = type;

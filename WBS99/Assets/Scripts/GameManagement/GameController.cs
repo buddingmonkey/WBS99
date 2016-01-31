@@ -74,11 +74,23 @@ public class GameController : MonoBehaviour {
 		currentRound.superstitions.Add (s);
 		*/
 
-		resultsPanel.generateSuperstitionsList (SpawnPlayer);
+		resultsPanel.generateSuperstitionsList (IntroClosed);
+		SpawnPlayer ();
+	}
+
+	void IntroClosed() {
+		var cam = GameObject.Find ("StartCamera");
+		if (cam != null) {
+			cam.SetActive (false);
+		}
 	}
 	
 	// Update is called once per frame
 	void Update () {
+		if (gameState == GameState.Flying) {
+			gameState = GameState.City;
+		}
+			
 		gameTime += Time.deltaTime;
 	}
 

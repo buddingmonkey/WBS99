@@ -20,6 +20,8 @@ public class ResultsPanel : MonoBehaviour {
 	private IEnumerator blinkEnumerator;
 	private bool allowContinue;
 
+	public GameController gameController { get; set; }
+
 	// Use this for initialization
 	void Start () {
 		ClearResults ();
@@ -31,6 +33,7 @@ public class ResultsPanel : MonoBehaviour {
 		if (allowContinue && Input.anyKeyDown) {
 			Debug.Log ("any key pressed");
 			enabled = false;
+			gameController.NextRound ();
 		}
 	}
 

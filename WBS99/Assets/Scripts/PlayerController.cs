@@ -9,10 +9,18 @@ public class PlayerController : MonoBehaviour {
 	Animator batAnimator;
 	public float speed = 6.0F;
 	public float gravity = 20.0F;
-	bool invul;
+	bool invulnerable;
+
+	private float idleTime = 0;
+
+	private float rotationSpeed = 10f;
+
+	[SerializeField]
+	private Transform wadeModel;
 
 	private Vector3 moveDirection = Vector3.zero;
 	public CharacterController controller;
+	public Animator animator;
 
 	public Transform cameraTransform;
 
@@ -48,8 +56,24 @@ public class PlayerController : MonoBehaviour {
 
 		if(Input.GetButtonDown("swing"))
 		{
-	StartCoroutine(SwingBat());
+			StartCoroutine(SwingBat());
 		}
+
+		if (moveDirection.sqrMagnitude > 1f) {
+			wadeModel.rotation = Quaternion.Slerp (
+				wadeModel.rotation,
+				Quaternion.LookRotation (moveDirection),
+				Time.deltaTime * rotationSpeed
+			);
+
+			wadeModel.rotation = Quaternion.Euler (0, wadeModel.eulerAngles.y, wadeModel.eulerAngles.z);
+			idleTime += 0;
+		} else {
+			idleTime += Time.deltaTime;
+		}
+
+		animator.SetFloat ("velocity", moveDirection.sqrMagnitude);
+		animator.SetFloat ("idleTime", idleTime);
 	}
 
 	IEnumerator SwingBat()
@@ -66,7 +90,7 @@ public class PlayerController : MonoBehaviour {
 
 	public IEnumerator DoDamage()
 	{
-		if(!invul)
+		if(!invulnerable)
 		{
 			health -= 1;
 		}
@@ -75,9 +99,9 @@ public class PlayerController : MonoBehaviour {
 			return false;
 		}
 		//make invulnerable for 1 second
-		invul = true;
+		invulnerable = true;
 		yield return new WaitForSeconds(1);
-		invul = false;
+		invulnerable = false;
 	}
 
 }

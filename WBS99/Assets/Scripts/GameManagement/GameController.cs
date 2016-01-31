@@ -35,6 +35,8 @@ public class GameController : MonoBehaviour {
 	private SuperDB superDB;
 
 	[SerializeField]
+	private Transform resultsPanelPrefab;
+	[SerializeField]
 	private ResultsPanel resultsPanel;
 
 	public GameState gameState { get; private set; }
@@ -43,10 +45,14 @@ public class GameController : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		NextRound ();
+		StartRound ();
+		if (resultsPanel == null) {
+			resultsPanel = Instantiate (resultsPanelPrefab).GetComponentInChildren<ResultsPanel>();
+			resultsPanel.gameController = this;
+		}
 	}
 
-	void NextRound(){
+	void StartRound(){
 		gameState = GameState.Flying;
 		currentRound = new Round ();
 
@@ -78,6 +84,10 @@ public class GameController : MonoBehaviour {
 		smoothFollow.target = player;
 	}
 
+	public Transform GetPlayer() {
+		return player;
+	}
+
 	public void PlayBall(){
 		// Do some baseball shit in here
 		Debug.Log("BASEBALL!");
@@ -92,8 +102,8 @@ public class GameController : MonoBehaviour {
 		} else if (GameMetrics.Instance.battingAverage < GameConstants.losingAverage && GameMetrics.Instance.battingAverage > .005f) {
 			SceneManager.LoadSceneAsync ("GameOver");
 		} else {
-			if (resultsPanel != null)
-				resultsPanel.generateRoundResults (currentRound);
+			resultsPanel.generateRoundResults (currentRound);
+			GenerateSupersititions ();
 		}
 	}
 
@@ -113,5 +123,15 @@ public class GameController : MonoBehaviour {
 			Debug.LogError ("No last round logged! Probably called this function before PlayBall()");
 			return;
 		}
+	}
+
+	public void NextRound() {
+		
+		GameMetrics.Instance.gamesPlayedInCity++;
+		if (GameMetrics.Instance.gamesPlayedInCity >= GameConstants.gamesPerCity) {
+			GameMetrics.Instance.cityIndex = (GameMetrics.Instance.cityIndex + 1) % superDB.cities.Count;
+		}
+
+		SceneManager.LoadSceneAsync (superDB.cities [GameMetrics.Instance.cityIndex].cityName);
 	}
 }

@@ -68,10 +68,18 @@ public class Superstition {
 			if (metric == SuperMetrics.pickup) {
 				value = round.numBalls % 10 == checkValue ? 1 : 0;
 			}
-			return;
+			break;
+
+		case Type.Cows:
+			if (metric == SuperMetrics.pickup) {
+				value = round.numCows % 10 == checkValue ? 1 : 0;
+			}
+			break;
 
 		default:
-			return;
+			value = 0;
+			maxValue = 1;
+			break;
 		}
 	}
 

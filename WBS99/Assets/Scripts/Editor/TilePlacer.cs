@@ -7,7 +7,7 @@ public class TilePlacerPopup : EditorWindow {
 	public GameObject grassTile;
 	bool isEditing = false;
 	public int index = 0;
-	const int sizeOfArray = 200;
+	const int sizeOfArray = 50;
 	Transform[,] tiles = new Transform[sizeOfArray,sizeOfArray]; 
 
 	[MenuItem("Tools/TilePlacer")]

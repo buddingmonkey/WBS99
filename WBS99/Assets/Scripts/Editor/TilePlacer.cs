@@ -105,6 +105,10 @@ public class TilePlacerPopup : EditorWindow {
 							Transform go;
 							go = (Transform)PrefabUtility.InstantiatePrefab (tile);
 							go.transform.position = pos; 
+							if (Level == null)
+							{
+								Level = GameObject.Find ("Level");
+							}
 							go.transform.parent = Level.transform; 
 							go.transform.rotation = rot;
 						} else if (tile.tag == "Collectable" || tile.tag == "Nature")

@@ -6,7 +6,6 @@ public class Enemy : MonoBehaviour {
 	private GameObject player;
 	private PlayerController playerController;
     private NavMeshAgent agent;
-    public float speed = 1.0f;
 	private EnemySpawner spawner;
 
     // Use this for initialization

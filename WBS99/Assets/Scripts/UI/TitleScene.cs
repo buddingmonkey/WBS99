@@ -22,4 +22,12 @@ public class TitleScene : MonoBehaviour {
 
 		SceneManager.LoadSceneAsync (city.cityName);
 	}
+
+
+	public void Update() {
+		if (Input.anyKeyDown) {
+			OnStartPress ();
+		}
+	}
+
 }

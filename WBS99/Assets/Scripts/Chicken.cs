@@ -5,9 +5,10 @@ public class Chicken : MonoBehaviour {
 
 	[SerializeField]
 	private float range = 100;
+	GameController gameController;
 	private NavMeshAgent agent;
 	private Vector3 point;
-	private Spawner spawner;
+	//private Spawner spawner;
 
 	bool RandomPoint(Vector3 center, float range, out Vector3 result) {
 		for (int i = 0; i < 30; i++) {
@@ -48,8 +49,11 @@ public class Chicken : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		spawner = transform.parent.GetComponent<Spawner> ();
+		//spawner = transform.parent.GetComponent<Spawner> ();
 		agent = GetComponent<NavMeshAgent>();
+		gameController = GetComponent<GameController>();
+		//agent.nextPosition = spawner.transform.position;
+		//transform.position = spawner.transform.position;
 		FindNewPoint ();
 	}
 	
@@ -66,12 +70,12 @@ public class Chicken : MonoBehaviour {
 			DestroySelf ();
 
 			// tell game controller
-			spawner.gameController.GotChicken(gameObject.name);
+			gameController.GotChicken(gameObject.name);
 		}
 	}
 
 	public void DestroySelf () {
-		spawner.DestroyObject (transform);
+		//spawner.DestroyObject (transform);
 	}
 
 }

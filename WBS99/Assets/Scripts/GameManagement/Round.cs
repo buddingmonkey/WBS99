@@ -33,6 +33,12 @@ public class Round {
 	public double hitProbability { get; private set; } 
 	public double outProbability { get; private set; }
 
+	public Round() {
+		foreach (var s in GameMetrics.Instance.GetSuperstitions()) {
+			superstitions.Add (new Superstition (s));
+		}
+	}
+
 	private double CalculateHitProbability(){
 		float sumProduct = 0;
 		float totalValue = 0;

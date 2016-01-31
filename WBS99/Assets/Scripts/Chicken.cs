@@ -51,7 +51,7 @@ public class Chicken : MonoBehaviour {
 	void Start () {
 		//spawner = transform.parent.GetComponent<Spawner> ();
 		agent = GetComponent<NavMeshAgent>();
-		gameController = GetComponent<GameController>();
+		gameController = GameObject.Find ("GameController").GetComponent<GameController>();
 		//agent.nextPosition = spawner.transform.position;
 		//transform.position = spawner.transform.position;
 		FindNewPoint ();
@@ -76,6 +76,7 @@ public class Chicken : MonoBehaviour {
 
 	public void DestroySelf () {
 		//spawner.DestroyObject (transform);
+		this.gameObject.SetActive(false);
 	}
 
 }

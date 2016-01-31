@@ -22,6 +22,9 @@ public class Superstition {
 	[HideInInspector]
 	public int value;
 
+	[HideInInspector]
+	public int checkValue;
+
 	public SuperMetrics metric;
 
 	[HideInInspector]
@@ -50,14 +53,21 @@ public class Superstition {
 	public void UpdateFromRound(Round round) {
 		switch (type) {
 		case Type.Chicken:
-			value = round.numChickens;
+			if (metric == SuperMetrics.pickup) {
+				value = round.numChickens % 10 == checkValue ? 1 : 0;
+			}
 			break;
 
 		case Type.Beer:
-			value = round.numBeers;
+			if (metric == SuperMetrics.pickup) {
+				value = round.numBeers % 10 == checkValue ? 1 : 0;
+			}
 			break;
 
 		case Type.Baseballs:
+			if (metric == SuperMetrics.pickup) {
+				value = round.numBalls % 10 == checkValue ? 1 : 0;
+			}
 			return;
 
 		default:

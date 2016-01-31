@@ -29,7 +29,7 @@ public class BuildingXRay : MonoBehaviour {
 		var dir = player.transform.position - camera.transform.position;
 		float dist = dir.magnitude;
 		foreach (RaycastHit info in Physics.RaycastAll(camera.transform.position, dir, dist)) {
-			if (info.collider.name.Substring (0, 8) == "Building") {
+			if (info.collider.name.Length > 8 && info.collider.name.Substring (0, 8) == "Building") {
 				var r = info.collider.transform.GetComponent<MeshRenderer> ();
 				whatsInTheWay.Add (r);
 				if (!whatWasInTheWay.Exists( obj => obj == r)) {

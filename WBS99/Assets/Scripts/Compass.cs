@@ -18,8 +18,14 @@ public class Compass : MonoBehaviour {
 	private Material mat;
 	private Vector3 lastPos;
 
+	private Transform stadium;
+
 	// Use this for initialization
 	void Start () {
+		stadium = GameObject.Find ("StadiumForTiling").transform;
+		if (stadium == null) {
+			Debug.Log ("CAN'T FIND StadiumForTiling");
+		}
 		mat = arrow.GetComponentInChildren<Renderer> ().sharedMaterial;
 		startTime = Time.time;
 		for (int i=0; i<maxArrows; i++) {
@@ -35,18 +41,21 @@ public class Compass : MonoBehaviour {
 		if (Time.time - startTime > 5) {
 			bool moved = (lastPos != player.position);
 			Color c = mat.color;
-			c.a = Mathf.Lerp (c.a, moved ? 0 : 1, 0.05f);
+			c.a = Mathf.Lerp (c.a, moved ? 0 : 1, 0.1f);
 			mat.color = c;
 
 			transform.position = player.position;
 
-			PointAtChickens ();
+			if (!PointAtChickens ()) {
+				PointAtStadium ();
+			}
 		}
 		lastPos = player.position;
 	}
 
-	void PointAtChickens() {
+	bool PointAtChickens() {
 		Vector3 pos = transform.position;
+		bool atLeastOne = false;
 		int i = 0;
 		foreach (var chick in GameObject.FindGameObjectsWithTag ("Chicken")) {
 			Vector3 dir = chick.transform.position - pos;
@@ -56,10 +65,28 @@ public class Compass : MonoBehaviour {
 			float angle = Mathf.Atan2(-dir.z, dir.x) * Mathf.Rad2Deg + 90;
 			a.transform.rotation = Quaternion.AngleAxis (angle, Vector3.up);
 			a.SetActive (true);
+			atLeastOne = true;
 			i++;
 		}
 
 		for (; i < arrows.Count; i++) {
+			arrows [i].SetActive (false);
+		}
+
+		return atLeastOne;
+	}
+
+	void PointAtStadium() {
+		Vector3 pos = transform.position;
+		Vector3 dir = stadium.transform.position - pos;
+		GameObject a = arrows [0];
+		var p = pos + (dir.normalized * radius);
+		a.transform.position = new Vector3(p.x, p.y + yOffset, p.z);
+		float angle = Mathf.Atan2(-dir.z, dir.x) * Mathf.Rad2Deg + 90;
+		a.transform.rotation = Quaternion.AngleAxis (angle, Vector3.up);
+		a.SetActive (true);
+
+		for (int i = 1; i < arrows.Count; i++) {
 			arrows [i].SetActive (false);
 		}
 	}

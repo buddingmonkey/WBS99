@@ -26,7 +26,7 @@ public class GameController : MonoBehaviour {
 	private List<Spawner> collectibleSpawners;
 
 	[SerializeField]
-	private SmoothFollow smoothFollow;
+	private BoggsFollow boggsFollow;
 
 	[SerializeField]
 	private Camera mainCamera;
@@ -74,8 +74,8 @@ public class GameController : MonoBehaviour {
 	private void SpawnPlayer(){
 		player = playerSpawner.Spawn ();
 		player.GetComponent<PlayerController> ().cameraTransform = mainCamera.transform;
-		smoothFollow.enabled = true;
-		smoothFollow.target = player;
+		boggsFollow.enabled = true;
+		boggsFollow.target = player;
 	}
 
 	public Transform GetPlayer() {
@@ -87,7 +87,7 @@ public class GameController : MonoBehaviour {
 		Debug.Log("BASEBALL!");
 		currentRound.PlayBall ();
 
-		smoothFollow.enabled = false;
+		boggsFollow.enabled = false;
 
 		playerSpawner.DestroyObject(player);
 

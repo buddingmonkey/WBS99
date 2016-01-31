@@ -169,4 +169,18 @@ public class ResultsPanel : MonoBehaviour {
 
 		audioSource.PlayOneShot (charge);
 	}
+
+	public void generateNewSupersitionsPage(int startNum, Action callback) {
+		this.callback = callback;
+		ClearResults ();
+		AddTitle ("New superstitions for " + GameMetrics.Instance.cityName);
+		AddTitle ("");
+		foreach (var s in GameMetrics.Instance.GetSuperstitions()) {
+			if (startNum <= 0)
+				AddTitle (s.DisplayName ());
+			else
+				startNum--;
+		}
+		ShowResults ();
+	}
 }

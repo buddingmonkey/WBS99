@@ -98,7 +98,7 @@ public class Superstition {
 			return string.Format ("Drink # of Beers ending in {0}", maxValue);
 		case Type.Baseballs:
 			return string.Format ("Field # of Balls ending in {0}", maxValue);
-		case Type:
+		case Type.Cows:
 			return string.Format ("Hit {0} Road Beef", maxValue);
 		case Type.Letters:
 			return string.Format ("Spell {0}", letters);

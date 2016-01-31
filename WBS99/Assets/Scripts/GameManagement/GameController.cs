@@ -89,9 +89,9 @@ public class GameController : MonoBehaviour {
 	void Update () {
 		if (gameState == GameState.Flying) {
 			gameState = GameState.City;
+		} else if (gameState == GameState.City) {
+			gameTime += Time.deltaTime;
 		}
-			
-		gameTime += Time.deltaTime;
 	}
 
 	private void SpawnPlayer(){
@@ -190,34 +190,39 @@ public class GameController : MonoBehaviour {
 		switch (super.type) {
 		case Superstition.Type.Chicken:
 			if (super.metric == SuperMetrics.pickup) {
-				super.maxValue = round.numChickens;
+				super.maxValue = 1;
+				super.checkValue = round.numChickens % 10;
 			} else {
 				// set time
 			}
 			break;
 		case Superstition.Type.Beer:
 			if (super.metric == SuperMetrics.pickup) {
-				super.maxValue = round.numBeers;
+				super.maxValue = 1;
+				super.checkValue = round.numBeers % 10;
 			} else {
 				// set time
 			}
 			break;
 		case Superstition.Type.Baseballs:
 			if (super.metric == SuperMetrics.pickup) {
-				super.maxValue = round.numBalls;
+				super.maxValue = 1;
+				super.checkValue = round.numBalls % 10;
 			} else {
 				// set time
 			}
 			break;
 		case Superstition.Type.Cows:
 			if (super.metric == SuperMetrics.pickup) {
-				super.maxValue = round.numCows;
+				super.maxValue = 1;
+				super.checkValue = round.numCows;
 			} else {
 				// set time
 			}
 			break;
 		case Superstition.Type.Time:
-			// set time
+			super.maxValue = 1;
+			super.checkValue = Mathf.RoundToInt (round.timeToStadium) % 10;
 			break;
 		case Superstition.Type.Letters:
 			// nothing to do

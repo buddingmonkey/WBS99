@@ -12,7 +12,7 @@ public class BoggsFollow : MonoBehaviour {
 	}
 	private Transform _target;
 
-	private Vector3 offset = new Vector3 (-30, 42.5f, -30);
+	private Vector3 offset = new Vector3 (-30, 42.5f, -30) * 0.65f;
 
 	void Start(){
 		

@@ -14,6 +14,13 @@ public class Enemy : MonoBehaviour
 
 	[SerializeField]
 	private Animator animation;
+	[SerializeField]
+	private AudioSource audioSource;
+	[SerializeField]
+	private AudioClip[] ouchies;
+
+	[SerializeField]
+	private GameObject playerMesh;
 
 	// Use this for initialization
 	void Start ()
@@ -71,15 +78,25 @@ public class Enemy : MonoBehaviour
 	void OnTriggerEnter (Collider other)
 	{
 		if (other.tag == "Bat") {
-			DestroySelf ();
+			int clip = Random.Range (0, ouchies.Length - 1);
+
+			audioSource.clip = ouchies [clip];
+			audioSource.Play ();
+
+			Invoke ("DestroySelf", ouchies [clip].length);
 
 			// tell game controller
 			spawner.gameController.HitEnemy ();
 		}
 	}
 
+	void OnEnable (){
+		playerMesh.SetActive (true);
+	}
+
 	public void DestroySelf ()
 	{
+		playerMesh.SetActive (false);
 		spawner.DestroyObject (transform);
 	}
 

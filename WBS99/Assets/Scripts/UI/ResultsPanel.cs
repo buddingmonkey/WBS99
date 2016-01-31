@@ -76,12 +76,15 @@ public class ResultsPanel : MonoBehaviour {
 		bg.enabled = false;
 		nItems = 0;
 		foreach (Text t in titles) {
+			t.text = "";
 			t.enabled = false;
 		}
 		foreach (Text t in labels) {
+			t.text = "";
 			t.enabled = false;
 		}
 		foreach (Text t in values) {
+			t.text = "";
 			t.enabled = false;
 		}
 		if (blinkEnumerator != null) {

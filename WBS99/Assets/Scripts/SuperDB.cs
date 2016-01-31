@@ -10,4 +10,5 @@ public class CityInfo{
 
 public class SuperDB : ScriptableObject {
 	public List<CityInfo> cities = new List<CityInfo>();
+	public List<Superstition> superstitions = new List<Superstition>();
 }

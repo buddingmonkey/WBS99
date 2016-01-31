@@ -15,9 +15,11 @@ public class TitleScene : MonoBehaviour {
 
 		starting = true;
 		int cityIndex = Random.Range (0, superDB.cities.Count);
-		GameMetrics.Instance.cityIndex = cityIndex;
-
 		CityInfo city = superDB.cities [cityIndex];
+
+		GameMetrics.Instance.cityIndex = cityIndex;
+		GameMetrics.Instance.cityName = city.cityName;
+
 		SceneManager.LoadSceneAsync (city.cityName);
 	}
 }

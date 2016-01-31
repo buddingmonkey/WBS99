@@ -41,7 +41,7 @@ public class GameMetrics {
 
 	public Dictionary<string, int> collectedItemTotals = new Dictionary<string, int>();
 
-	public List<Superstition> superstitions = new List<Superstition>();
+	public Dictionary<int, List<Superstition>> superstitions = new Dictionary<int, List<Superstition>>();
 
 	public Round lastRound;
 
@@ -49,4 +49,12 @@ public class GameMetrics {
 
 	public int cityIndex = 0;
 	public int gamesPlayedInCity = 0;
+	public string cityName = "";
+
+	public List<Superstition> GetSuperstitions() {
+		if (!superstitions.ContainsKey (cityIndex)) {
+			superstitions [cityIndex] = new List<Superstition> ();
+		}
+		return superstitions [cityIndex];
+	}
 }

@@ -57,7 +57,7 @@ public class Round {
 		
 	private int CalculateAtBats(){
 		var bats = RandomFromDistribution.RandomRangeNormalDistribution (0, MAX_ATBATS, RandomFromDistribution.ConfidenceLevel_e._80);
-		return Mathf.RoundToInt (bats);
+		return Mathf.Max(1, Mathf.RoundToInt (bats));
 	}
 
 	//=ROUND(NORMINV(0.99*E11,B2/2,B2/6),0)

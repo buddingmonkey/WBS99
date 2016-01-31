@@ -6,7 +6,7 @@ public class RoadBeef : MonoBehaviour {
 	private GameObject player;
 	private PlayerController playerController;
     private NavMeshAgent agent;
-	private EnemySpawner spawner;
+	private RoadBeefSpawnController spawner;
 	private float range = 100;
 	private Vector3 point;
 
@@ -49,7 +49,7 @@ public class RoadBeef : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		spawner = transform.parent.GetComponent<EnemySpawner> ();
+		spawner = GameObject.Find("BeefSpawn").GetComponent<RoadBeefSpawnController>();
 		agent = GetComponent<NavMeshAgent>();
 		player = GameObject.FindGameObjectWithTag ("Player");
 		playerController = player.GetComponent<PlayerController>();

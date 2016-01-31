@@ -20,6 +20,17 @@ public class ResultsPanel : MonoBehaviour {
 	[SerializeField]
 	private Image bg;
 
+	[SerializeField]
+	private AudioSource audioSource;
+
+	[SerializeField]
+	private AudioClip cheer;
+	[SerializeField]
+	private AudioClip charge;
+
+	[SerializeField]
+	private AudioListener audioListener;
+
 	private int nItems;
 	private IEnumerator blinkEnumerator;
 	private bool allowContinue;
@@ -141,6 +152,9 @@ public class ResultsPanel : MonoBehaviour {
 		AddItem ("Current Batting Average", string.Format("{0:.000}", GameMetrics.Instance.battingAverage));
 
 		ShowResults ();
+
+		audioListener.enabled = true;
+		audioSource.PlayOneShot (cheer);
 	}
 
 	public void generateSuperstitionsList(Action callback) {
@@ -150,6 +164,22 @@ public class ResultsPanel : MonoBehaviour {
 		AddTitle ("");
 		foreach (var s in GameMetrics.Instance.GetSuperstitions()) {
 			AddTitle (s.NonSpecificDisplayName ());
+		}
+		ShowResults ();
+
+		audioSource.PlayOneShot (charge);
+	}
+
+	public void generateNewSupersitionsPage(int startNum, Action callback) {
+		this.callback = callback;
+		ClearResults ();
+		AddTitle ("New superstitions for " + GameMetrics.Instance.cityName);
+		AddTitle ("");
+		foreach (var s in GameMetrics.Instance.GetSuperstitions()) {
+			if (startNum <= 0)
+				AddTitle (s.DisplayName ());
+			else
+				startNum--;
 		}
 		ShowResults ();
 	}

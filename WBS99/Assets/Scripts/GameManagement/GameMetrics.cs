@@ -49,7 +49,7 @@ public class GameMetrics {
 
 	public int cityIndex = 0;
 	public int gamesPlayedInCity = 0;
-	public string cityName = "";
+	public string cityName = "this city";
 
 	public List<Superstition> GetSuperstitions() {
 		if (!superstitions.ContainsKey (cityIndex)) {

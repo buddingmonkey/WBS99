@@ -134,8 +134,7 @@ public class GameController : MonoBehaviour {
 		} else if (GameMetrics.Instance.battingAverage < GameConstants.losingAverage && GameMetrics.Instance.battingAverage > .005f) {
 			SceneManager.LoadSceneAsync ("GameOver");
 		} else {
-			resultsPanel.generateRoundResults (currentRound, NextRound);
-			GenerateSupersititions ();
+			resultsPanel.generateRoundResults (currentRound, GenerateSupersititions);
 		}
 	}
 
@@ -181,6 +180,7 @@ public class GameController : MonoBehaviour {
 			Debug.LogError ("No last round logged! Probably called this function before PlayBall()");
 			return;
 		}
+		int nSupers = round.superstitions.Count;
 		if (round.superstitions.Count < 3) {
 			// first time? add 3
 			GenerateSuperstition(round, GameMetrics.Instance.GetSuperstitions ());
@@ -190,12 +190,14 @@ public class GameController : MonoBehaviour {
 			// returned to city from another? add 1
 			GenerateSuperstition(round, GameMetrics.Instance.GetSuperstitions ());
 		}
+		resultsPanel.generateNewSupersitionsPage (nSupers, NextRound);
+
 	}
 
 	private void GenerateSuperstition(Round round, List<Superstition> superstitions) {
 		CityInfo city = superDB.cities [GameMetrics.Instance.cityIndex];
 		List<Superstition> current = GameMetrics.Instance.GetSuperstitions ();
-		var unused = city.super.Where ( s => !current.Any(s2 => s2.type != s.type && s2.metric != s.metric));
+		var unused = city.super.Where ( s => !current.Any(s2 => s2.type == s.type && s2.metric == s.metric));
 		if (unused.Count() == 0)
 			return;
 

@@ -103,12 +103,38 @@ public class GameController : MonoBehaviour {
 
 	public void GotChicken(string name) {
 		currentRound.numChickens++;
+		currentRound.lastChicken = gameTime;
 		Debug.Log ("Got a Chicken");
+	}
+
+	public void GotBaseball(string name) {
+		currentRound.numBalls++;
+		currentRound.lastBall = gameTime;
+		Debug.Log ("Got a Baseball");
+	}
+
+	public void GotLetter(char letter) {
+		currentRound.letters += letter;
+		currentRound.lastLetter = gameTime;
+		Debug.LogFormat ("Got a Letter {0}", letter);
+	}
+
+	public void GotBeer(string name) {
+		currentRound.numBeers++;
+		currentRound.lastBeer = gameTime;
+		Debug.Log ("Got a Beer");
 	}
 
 	public void HitEnemy() {
 		currentRound.numEnemies++;
+		currentRound.lastEnemy = gameTime;
 		Debug.Log ("Hit a Enemy");
+	}
+
+	public void HitRoadBeef() {
+		currentRound.numCows++;
+		currentRound.lastCow = gameTime;
+		Debug.Log ("Hit DAT ROAD BEEF BOIIIIIIII!!!!");
 	}
 
 	public void GenerateSupersititions(){

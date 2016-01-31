@@ -62,6 +62,7 @@ public class GameController : MonoBehaviour {
 			resultsPanel.gameController = this;
 		}
 		StartRound ();
+		mainCamera.GetComponent<AudioSource> ().enabled = false;
 	}
 
 	void StartRound(){
@@ -92,6 +93,7 @@ public class GameController : MonoBehaviour {
 		if (cam != null) {
 			cam.SetActive (false);
 		}
+		mainCamera.GetComponent<AudioSource> ().enabled = true;
 	}
 	
 	// Update is called once per frame
@@ -236,12 +238,16 @@ public class GameController : MonoBehaviour {
 			}
 			break;
 		case Superstition.Type.Time:
+			// TODO add time superstitions
+			return;
+
 			super.maxValue = 1;
 			super.checkValue = Mathf.RoundToInt (round.timeToStadium) % 10;
 			break;
 		case Superstition.Type.Letters:
 			// nothing to do
-			break;
+			// TODO support letters superstition
+			return;
 		}
 
 		current.Add (super);
@@ -255,6 +261,7 @@ public class GameController : MonoBehaviour {
 		}
 		string name = superDB.cities [GameMetrics.Instance.cityIndex].cityName;
 		GameMetrics.Instance.cityName = name;
+		Prime31.ZestKit.ZestKit.instance.stopAllTweens();
 		SceneManager.LoadSceneAsync (name);
 	}
 }

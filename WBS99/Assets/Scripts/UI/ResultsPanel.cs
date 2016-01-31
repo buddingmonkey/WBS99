@@ -175,12 +175,19 @@ public class ResultsPanel : MonoBehaviour {
 		ClearResults ();
 		AddTitle ("New superstitions for " + GameMetrics.Instance.cityName);
 		AddTitle ("");
+		bool any = false;
 		foreach (var s in GameMetrics.Instance.GetSuperstitions()) {
-			if (startNum <= 0)
+			if (startNum <= 0) {
+				any = true;
 				AddTitle (s.DisplayName ());
-			else
+			} else {
 				startNum--;
+			}
 		}
-		ShowResults ();
+		if (any) {
+			ShowResults ();
+		} else {
+			callback ();
+		}
 	}
 }

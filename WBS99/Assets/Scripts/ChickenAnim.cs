@@ -12,12 +12,30 @@ public class ChickenAnim : MonoBehaviour {
 	[SerializeField]
 	private Transform rightEye;
 
+	[SerializeField]
+	private AudioSource audioSource;
+	[SerializeField]
+	private AudioClip cluck;
+	[SerializeField]
+	private AudioClip squwak;
+
 	// Use this for initialization
 	void Start () {
 		FlapWings (null);
 		CrayEye (leftEye);
 		CrayEye (rightEye);
 		BounceBounce ();
+	}
+
+	void Update(){
+		if (!audioSource.isPlaying ) {
+			if (Random.Range (0, 2) == 0) {
+				audioSource.clip = squwak;
+			} else {
+				audioSource.clip = cluck;
+			}
+			audioSource.Play ();
+		}
 	}
 
 	void FlapWings(ITween<UnityEngine.Vector3> tween){

@@ -49,6 +49,7 @@ public class Superstition {
 		this.letters = s.letters;
 		this.weight = s.weight;
 		this.maxValue = s.maxValue;
+		this.checkValue = s.checkValue;
 	}
 	
 	public void UpdateFromRound(Round round) {
@@ -102,17 +103,17 @@ public class Superstition {
 	public string DisplayName() {
 		switch (type) {
 		case Type.Chicken:
-			if (maxValue == 1) {
+			if (checkValue == 1) {
 				return string.Format ("Eat a Chicken");
 			} else {
-				return string.Format ("Eat # of Chickens ending in {0}", maxValue % 10);
+				return string.Format ("Eat # of Chickens ending in {0}", checkValue % 10);
 			}
 		case Type.Beer:
-			return string.Format ("Drink # of Beers ending in {0}", maxValue);
+			return string.Format ("Drink # of Beers ending in {0}", checkValue);
 		case Type.Baseballs:
-			return string.Format ("Field # of Balls ending in {0}", maxValue);
+			return string.Format ("Field # of Balls ending in {0}", checkValue);
 		case Type.Cows:
-			return string.Format ("Hit {0} Road Beef", maxValue);
+			return string.Format ("Hit {0} Road Beef", checkValue);
 		case Type.Letters:
 			return string.Format ("Spell {0}", letters);
 		default:
@@ -133,11 +134,12 @@ public class Superstition {
 		}
 	}
 
-	private static Superstition Create(Type type, int maxValue) {
+	private static Superstition Create(Type type, int checkValue) {
 		var s = new Superstition ();
 		s.type = type;
-		s.maxValue = maxValue;
+		s.maxValue = 1;
 		s.value = 0;
+		s.checkValue = checkValue;
 		return s;
 	}
 

@@ -4,8 +4,7 @@ using System.Collections.Generic;
 
 public enum SuperMetrics{
 	pickup,
-	totalTime,
-	pickupTime
+	time
 }
 
 [System.Serializable]
@@ -13,9 +12,14 @@ public class Superstition {
 	public enum Type {
 		Chicken,
 		Beer,
-		Baseballs
+		Baseballs,
+		Cows,
+		Letters,
+		Time
 	}
 	public Type type;
+
+	public string superTitle;
 
 	[HideInInspector]
 	public int value;
@@ -33,7 +37,7 @@ public class Superstition {
 	}
 
 	public float weight;
-	public string trackedObjectTag;
+	public string letters;
 	
 	public void UpdateFromRound(Round round) {
 		switch (type) {

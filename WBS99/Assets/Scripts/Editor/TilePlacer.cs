@@ -7,7 +7,8 @@ public class TilePlacerPopup : EditorWindow {
 	public GameObject grassTile;
 	bool isEditing = false;
 	public int index = 0;
-	const int sizeOfArray = 200;
+	const int sizeOfArray = 50;
+	GameObject Level;
 	Transform[,] tiles = new Transform[sizeOfArray,sizeOfArray]; 
 
 	[MenuItem("Tools/TilePlacer")]
@@ -44,6 +45,7 @@ public class TilePlacerPopup : EditorWindow {
 
 		Object o = AssetDatabase.LoadAssetAtPath<GameObject> ("Assets/Tiles/Prefabs/3D Road Tiles/roadTile_163.prefab");
 		grassTile = (GameObject)GameObject.Instantiate (o);
+		Level = new GameObject("Level");
 
 		Vector3 pos = new Vector3 (0, 0, 0);
 		GameObject temptile;
@@ -54,10 +56,11 @@ public class TilePlacerPopup : EditorWindow {
 				temptile = (GameObject)Instantiate (grassTile, pos, Quaternion.identity); 
 				tiles[i,j] = temptile.transform;
 				pos = new Vector3 (pos.x+3, pos.y,pos.z);
+				temptile.transform.parent = Level.transform;
 			}
 			pos = new Vector3 (0, pos.y,pos.z+3);
 		}
-
+		DestroyImmediate (grassTile);
 	}
 
 
@@ -100,7 +103,9 @@ public class TilePlacerPopup : EditorWindow {
 							{
 								DestroyImmediate (hit.collider.gameObject);
 							}
-							Instantiate (tile, pos, rot); 
+							Transform go;
+							go = (Transform)Instantiate (tile, pos, rot); 
+							go.transform.parent = Level.transform;
 						} else if (tile.tag == "Collectable" || tile.tag == "Nature")
 						{
 							Vector3 pos = hit.collider.transform.position;

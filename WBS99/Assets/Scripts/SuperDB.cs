@@ -5,7 +5,6 @@ using System.Collections.Generic;
 [System.Serializable]
 public class CityInfo{
 	public string cityName;
-	public string superTitle;
 	public List<Superstition> super;
 }
 

@@ -3,8 +3,6 @@ using System.Collections;
 
 public class RoadBeef : MonoBehaviour {
 
-	private GameObject player;
-	private PlayerController playerController;
     private NavMeshAgent agent;
 	private RoadBeefSpawnController spawner;
 	private float range = 100;
@@ -51,12 +49,6 @@ public class RoadBeef : MonoBehaviour {
 	void Start () {
 		spawner = GameObject.Find("BeefSpawn").GetComponent<RoadBeefSpawnController>();
 		agent = GetComponent<NavMeshAgent>();
-		player = GameObject.FindGameObjectWithTag ("Player");
-		playerController = player.GetComponent<PlayerController>();
-
-		if (!player) {
-			Debug.Log ("ERROR could not find Player!");
-		}
 
 		FindNewPoint ();
 	}

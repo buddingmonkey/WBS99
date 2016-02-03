@@ -6,7 +6,6 @@ public class PlayerController : MonoBehaviour {
 	[SerializeField]
 	int health = 5;
 	public GameObject bat;
-	Animator batAnimator;
 	public float speed = 6.0F;
 	public float gravity = 20.0F;
 	bool invulnerable;
@@ -39,7 +38,6 @@ public class PlayerController : MonoBehaviour {
 	void OnEnable(){
 		// Store reference to attached component
 		controller = GetComponent<CharacterController>();
-		batAnimator = bat.GetComponent<Animator>();
 	}
 
 	void Update() 
@@ -68,7 +66,7 @@ public class PlayerController : MonoBehaviour {
 
 		if(Input.GetButtonDown("swing"))
 		{
-			StartCoroutine(SwingBat());
+			animator.Play ("baseball_hit_Mirrored");
 		}
 
 		if (moveDirection.sqrMagnitude > 1f) {
@@ -92,24 +90,6 @@ public class PlayerController : MonoBehaviour {
 
 		animator.SetFloat ("velocity", moveDirection.sqrMagnitude);
 		animator.SetFloat ("idleTime", idleTime);
-	}
-
-	IEnumerator SwingBat()
-	{
-
-	//bat.SetActive(true);
-	//batAnimator.Play("Swing");
-		animator.Play ("baseball_hit_Mirrored");
-		bat.SetActive (true);
-		//return;
-		//animator.
-		yield return new WaitForSeconds( animator.GetCurrentAnimatorStateInfo (0).length-0.1f);
-//		{
-//			Debug.Log ("ADSJHAKS");
-//			yield return null;
-//		}
-
-		bat.SetActive (false);
 	}
 
 	public IEnumerator DoDamage()
